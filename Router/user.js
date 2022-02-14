@@ -172,9 +172,6 @@ router.delete('/deleteUser/:id', UserController.deleteUser)
  */
 router.post('/register', middleware.middleware, UserController.register)
 
-router.post('/login', UserController.login)
-
-router.post('/userDetail', middleware.middleware, UserController.user)
 
 
 /**
@@ -191,6 +188,14 @@ router.post('/userDetail', middleware.middleware, UserController.user)
  *      500:
  *        description: Some error happened
  */
-router.get('/logout', UserController.logout)
+ router.get('/logout', UserController.logout)
+
+ 
+
+router.get('/pagination', UserController.pagination)
+
+router.post('/login', UserController.login)
+
+router.post('/userDetail', middleware.middleware, UserController.user)
 
 module.exports = router;

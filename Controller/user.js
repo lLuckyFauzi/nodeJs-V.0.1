@@ -4,6 +4,7 @@ const db = require('../helper/relation')
 
 
 const bcrypt = require('bcrypt');
+const { json } = require('express/lib/response');
 
 const { User, Notes } = db;
 
@@ -109,12 +110,24 @@ module.exports = {
     },
 
     getUser: async (req, res) => {
-        const data = await User.findAll({
-            limit: JSON.parse(req.query.size),
-            offset: JSON.parse(req.query.page)
-        })
-        res.json(data)
+        const data = await User.findAll({})
+        res.status(200).json({data})
     },
+
+    pagination: async (req, res) => {
+        try {
+            const data = await User.findAll({
+                limit: JSON.parse(req.query.size),
+                offset: JSON.parse(req.query.page)
+            })
+            if(data == 0) {
+                res.status(404).json({message: "Out of Pages!"})
+            }
+            res.json({ data })
+            } catch (error) {
+                res.status(422).json({message: error.message})
+            }
+        },
 
     updateUser: async (req, res) => {
         const id = req.params.id
