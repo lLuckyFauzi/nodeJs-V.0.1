@@ -78,6 +78,10 @@ module.exports = {
         }
     },
 
+    logout: async (req, res) => {
+        res.status(200).json({message: "Logout Succes!"})
+    },
+
     register: async (req, res) => {
         try {
             const username = req.body.username

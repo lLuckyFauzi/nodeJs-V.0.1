@@ -176,4 +176,6 @@ router.post('/login', UserController.login)
 
 router.post('/userDetail', middleware.middleware, UserController.user)
 
+router.get('/logout', UserController.logout)
+
 module.exports = router;
