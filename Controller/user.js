@@ -110,9 +110,8 @@ module.exports = {
 
     getUser: async (req, res) => {
         const data = await User.findAll({
-            // limit: JSON.parse(req.query.size),
-            // offset: JSON.parse(req.query.page)
-               
+            limit: JSON.parse(req.query.size),
+            offset: JSON.parse(req.query.page)
         })
         res.json(data)
     },

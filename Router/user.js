@@ -176,6 +176,21 @@ router.post('/login', UserController.login)
 
 router.post('/userDetail', middleware.middleware, UserController.user)
 
+
+/**
+ * @swagger
+ * /logout:
+ *  get:
+ *    summary: Get User
+ *    tags: [USER]
+ *    responses:
+ *      200:
+ *        description: User was created
+ *      404:
+ *        description: User was not found
+ *      500:
+ *        description: Some error happened
+ */
 router.get('/logout', UserController.logout)
 
 module.exports = router;
