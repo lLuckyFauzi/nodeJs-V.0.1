@@ -16,6 +16,7 @@ module.exports = {
     createUser: async (req, res) => {
         const saltRound = 7;
         const password = req.body.password;
+        console.log(password);
         const hashPassword = await bcrypt.hash(password, saltRound)
         try {
             const data = await User.create({
@@ -30,10 +31,25 @@ module.exports = {
         }
     },
 
+    getOne: async (req, res) => {
+       try {
+         const data = await User.findOne({
+         where: {username: req.params.username}
+         })
+         if(!data){
+             res.status(404).json({message: "Data Not Found!"})
+         }
+         res.status(201).json({message: "Succes", data: data})
+       } catch(error) {
+         res.status(422).json({message: error.message})
+       }
+    },
+
     login: async (req, res) => {
         try {
             const username = req.body.username;
             const password = req.body.password;
+            const email = req.body.email;
 
             const data = await User.findOne({
                 where: {
@@ -52,9 +68,11 @@ module.exports = {
             const payload = {
                 ID: data.dataValues.id,
                 username: username,
+                email: email
             }
+            console.log(payload)
             const token = jwt.sign(payload, "hey")
-            res.json({ username: data.username, token: token })
+            res.json({ username: data.username, email:data.email, token: token })
         } catch (err) {
             res.json({ msg: err.message })
         }
@@ -68,7 +86,7 @@ module.exports = {
                     username: username
                 },
             })
-            console.log(req.payload);
+            console.log(req.payload);   
             res.json({ userId: data.id ,username: data.username })
         } catch (Error) {
             console.log( Error.message )
@@ -88,8 +106,8 @@ module.exports = {
 
     getUser: async (req, res) => {
         const data = await User.findAll({
-            limit: JSON.parse(req.query.size),
-            offset: JSON.parse(req.query.page)
+            // limit: JSON.parse(req.query.size),
+            // offset: JSON.parse(req.query.page)
                
         })
         res.json(data)
