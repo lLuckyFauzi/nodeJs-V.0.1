@@ -98,13 +98,21 @@ module.exports = {
   },
 
   user: async (req, res) => {
-    const data = await User.findOne({
-      where: {
-        id: req.payload.ID,
-      },
-      include: [{ model: Notes }],
-    });
-    res.json({ data });
+    try {
+      const data = await User.findOne({
+        where: {
+          id: req.payload.ID,
+        },
+        include: [{ model: Notes }],
+      });
+
+      if (!data) {
+        res.status(404).json({ message: "Not Found!" });
+      }
+      res.json({ data });
+    } catch (error) {
+      res.status(422).json({ message: error.messsage });
+    }
   },
 
   getUser: async (req, res) => {
