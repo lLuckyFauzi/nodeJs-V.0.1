@@ -1,6 +1,6 @@
 const db = require("../helper/relation");
 
-const { Notes } = db;
+const { Notes, User } = db;
 
 module.exports = {
   createNotes: async (req, res) => {
@@ -21,6 +21,14 @@ module.exports = {
 
   getNotes: async (req, res) => {
     const data = await Notes.findAll({});
+    res.json(data);
+  },
+
+  getOneNotes: async (req, res) => {
+    const data = await Notes.findOne({
+      include: [{ model: User }],
+      where: { id: req.params.id },
+    });
     res.json(data);
   },
 
