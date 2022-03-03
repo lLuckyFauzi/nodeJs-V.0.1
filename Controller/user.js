@@ -18,6 +18,7 @@ module.exports = {
     const hashPassword = await bcrypt.hash(password, saltRound);
     try {
       const data = await User.create({
+        user_id: req.body.user_id,
         username: req.body.username,
         email: req.body.email,
         password: hashPassword,
@@ -38,9 +39,9 @@ module.exports = {
       if (!data) {
         res.status(404).json({ message: "Data Not Found!" });
       }
-      res.status(201).json({ message: "Succes", data: data });
+      res.status(200).json({ message: "Succes", data: data });
     } catch (error) {
-      res.status(422).json({ message: error.message });
+      res.status(422).json({ message: error.sqlMessage });
     }
   },
 
@@ -115,7 +116,9 @@ module.exports = {
   },
 
   getUser: async (req, res) => {
-    const data = await User.findAll({});
+    const data = await User.findAll({
+      attributes: ["user_id", "username", "email", "password"],
+    });
     res.status(200).json({ data });
   },
 
@@ -138,6 +141,7 @@ module.exports = {
     const id = req.params.id;
     const data = await User.update(
       {
+        user_id: req.body.user_id,
         username: req.body.username,
         email: req.body.email,
         password: req.body.password,
