@@ -18,7 +18,6 @@ module.exports = {
     const hashPassword = await bcrypt.hash(password, saltRound);
     try {
       const data = await User.create({
-        user_id: req.body.user_id,
         username: req.body.username,
         email: req.body.email,
         password: hashPassword,
@@ -116,9 +115,7 @@ module.exports = {
   },
 
   getUser: async (req, res) => {
-    const data = await User.findAll({
-      attributes: ["user_id", "username", "email", "password"],
-    });
+    const data = await User.findAll({});
     res.status(200).json({ data });
   },
 
@@ -141,7 +138,6 @@ module.exports = {
     const id = req.params.id;
     const data = await User.update(
       {
-        user_id: req.body.user_id,
         username: req.body.username,
         email: req.body.email,
         password: req.body.password,
