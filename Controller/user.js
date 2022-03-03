@@ -32,6 +32,7 @@ module.exports = {
   getOne: async (req, res) => {
     try {
       const data = await User.findOne({
+        include: [{ model: Notes }],
         where: { username: req.params.username },
       });
       if (!data) {
