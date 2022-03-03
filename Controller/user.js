@@ -105,11 +105,10 @@ module.exports = {
         },
         include: [{ model: Notes }],
       });
-
       if (!data) {
         res.status(404).json({ message: "Not Found!" });
       }
-      res.json({ data });
+      res.status(200).json({ data });
     } catch (error) {
       res.status(422).json({ message: error.messsage });
     }
