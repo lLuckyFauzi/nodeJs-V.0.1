@@ -2,7 +2,6 @@ const jwt = require("jsonwebtoken");
 const db = require("../helper/relation");
 
 const bcrypt = require("bcrypt");
-const { json } = require("express/lib/response");
 
 const { User, Notes } = db;
 
@@ -108,7 +107,7 @@ module.exports = {
       if (!data) {
         res.status(404).json({ message: "Not Found!" });
       }
-      res.status(200).json({ data });
+      res.status(200).json(data);
     } catch (error) {
       res.status(422).json({ message: error.sqlMessage });
     }
