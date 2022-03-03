@@ -90,7 +90,7 @@ module.exports = {
         },
       });
       console.log(req.payload);
-      res.json({ userId: data.id, username: data.username });
+      res.json({ userId: data.id, username: data.username, email: data.email });
     } catch (Error) {
       console.log(Error.message);
       res.status(422).json({ message: Error.sqlMessage });

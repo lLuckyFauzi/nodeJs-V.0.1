@@ -1,17 +1,19 @@
-const jwt = require('jsonwebtoken')
-
+const jwt = require("jsonwebtoken");
 
 const middleware = (req, res, next) => {
-    const token = req.headers.authorization;
-    const user = jwt.decode(token, process.env.TOKEN)
+  const token = req.headers.authorization;
+  if (!token) {
+    res.status(404).json({ message: "Cannot find user, Please login first" });
+  }
 
-    if(!user || !token) {
-        return res.status(401).json({ message: `Please login or Register first!` })
-    }
-    req.payload = user;
-    next()
-}
+  const user = jwt.decode(token, process.env.TOKEN);
+  if (!user) {
+    res.status(401).json({ message: `User not found!` });
+  }
+  req.payload = user;
+  next();
+};
 
 module.exports = {
-    middleware
-}
+  middleware,
+};

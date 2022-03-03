@@ -1,8 +1,7 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const UserController = require('../Controller/user');
-const middleware = require('../middleware/middleware')
-
+const UserController = require("../Controller/user");
+const middleware = require("../middleware/middleware");
 
 /**
  * @swagger
@@ -18,8 +17,7 @@ const middleware = require('../middleware/middleware')
  *      500:
  *        description: Some error happened
  */
-router.get('/getUser', UserController.getUser)
-
+router.get("/getUser", UserController.getUser);
 
 /**
  * @swagger
@@ -42,8 +40,7 @@ router.get('/getUser', UserController.getUser)
  *      500:
  *        description: Some error happened
  */
- router.get('/getOne/:username', UserController.getOne)
-
+router.get("/getOne/:username", UserController.getOne);
 
 /**
  * @swagger
@@ -78,11 +75,9 @@ router.get('/getUser', UserController.getUser)
  *      500:
  *        description: Some error happened
  */
-router.post('/createUser', UserController.createUser)
+router.post("/createUser", UserController.createUser);
 
-
-
- /**
+/**
  * @swagger
  * /updateUser/{id}:
  *  put:
@@ -114,10 +109,9 @@ router.post('/createUser', UserController.createUser)
  *      500:
  *        description: Some error happened
  */
-router.put('/updateUser/:id', UserController.updateUser)
+router.put("/updateUser/:id", UserController.updateUser);
 
-
- /**
+/**
  * @swagger
  * /deleteUser/{id}:
  *  delete:
@@ -138,8 +132,7 @@ router.put('/updateUser/:id', UserController.updateUser)
  *      500:
  *        description: Some error happened
  */
-router.delete('/deleteUser/:id', UserController.deleteUser)
-
+router.delete("/deleteUser/:id", UserController.deleteUser);
 
 /**
  * @swagger
@@ -170,9 +163,7 @@ router.delete('/deleteUser/:id', UserController.deleteUser)
  *      500:
  *        description: Some error happened
  */
-router.post('/register', middleware.middleware, UserController.register)
-
-
+router.post("/register", middleware.middleware, UserController.register);
 
 /**
  * @swagger
@@ -188,14 +179,12 @@ router.post('/register', middleware.middleware, UserController.register)
  *      500:
  *        description: Some error happened
  */
- router.get('/logout', UserController.logout)
+router.get("/logout", UserController.logout);
 
- 
+router.get("/pagination", UserController.pagination);
 
-router.get('/pagination', UserController.pagination)
+router.post("/login", UserController.login);
 
-router.post('/login', UserController.login)
-
-router.post('/userDetail', middleware.middleware, UserController.user)
+router.post("/userDetail", middleware.middleware, UserController.user);
 
 module.exports = router;
