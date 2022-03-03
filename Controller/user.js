@@ -110,7 +110,7 @@ module.exports = {
       }
       res.status(200).json({ data });
     } catch (error) {
-      res.status(422).json({ message: error.messsage });
+      res.status(422).json({ message: error.sqlMessage });
     }
   },
 
