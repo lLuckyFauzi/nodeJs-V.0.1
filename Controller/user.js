@@ -101,7 +101,7 @@ module.exports = {
     try {
       const data = await User.findOne({
         where: {
-          id: req.payload.ID,
+          ID: req.payload.ID,
         },
         include: [{ model: Notes }],
       });
