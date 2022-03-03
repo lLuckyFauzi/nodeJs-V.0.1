@@ -1,34 +1,35 @@
-const express = require('express');
-const UserRouter = require('./Router/user');
-const NotesRouter = require('./Router/notes');
-const swaggerJsDoc = require('swagger-jsdoc');
-const swaggerUI = require('swagger-ui-express')
+require("dotenv").config();
+
+const express = require("express");
+const UserRouter = require("./Router/user");
+const NotesRouter = require("./Router/notes");
+const swaggerJsDoc = require("swagger-jsdoc");
+const swaggerUI = require("swagger-ui-express");
+const port = process.env.PORT || 3001;
 
 const app = express();
 
 const option = {
-    definition: {
-        openapi: "3.0.0",
-        info: {
-            title: "Library API",
-            version: "1.0.0",
-            description: "A simple Express Library API"
-        },
-        servers: [
-            {url: 'http://localhost:3001'}
-        ]
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Library API",
+      version: "1.0.0",
+      description: "A simple Express Library API",
     },
-    apis: ["./Router/*.js"]
+    servers: [{ url: "http://localhost:3001" }],
+  },
+  apis: ["./Router/*.js"],
 };
 
-const specs = swaggerJsDoc(option)
+const specs = swaggerJsDoc(option);
 
-app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs))
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 
-app.use(express.json())
-app.use(UserRouter)
-app.use(NotesRouter)
+app.use(express.json());
+app.use(UserRouter);
+app.use(NotesRouter);
 
-app.listen(3001, () => console.log(`Listening at PORT ` + 3001))
+app.listen(port, () => console.log(`Listening at PORT ` + 3001));
 
-module.exports = app
+module.exports = app;
