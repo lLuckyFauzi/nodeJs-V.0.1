@@ -47,7 +47,6 @@ module.exports = {
 
   login: async (req, res) => {
     try {
-      const firstname = req.body.firstname;
       const email = req.body.email;
       const password = req.body.password;
 
