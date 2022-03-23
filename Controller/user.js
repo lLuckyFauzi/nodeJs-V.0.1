@@ -18,7 +18,8 @@ module.exports = {
     const hashPassword = await bcrypt.hash(password, saltRound);
     try {
       const data = await User.create({
-        username: req.body.username,
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
         email: req.body.email,
         password: hashPassword,
       });
@@ -33,12 +34,12 @@ module.exports = {
     try {
       const data = await User.findOne({
         include: [{ model: Notes }],
-        where: { username: req.params.username },
+        where: { id: req.params.id },
       });
       if (!data) {
         res.status(404).json({ message: "Data Not Found!" });
       }
-      res.status(200).json({ message: "Succes", data: data });
+      res.status(200).json(data);
     } catch (error) {
       res.status(422).json({ message: error.sqlMessage });
     }
@@ -46,17 +47,17 @@ module.exports = {
 
   login: async (req, res) => {
     try {
-      const username = req.body.username;
-      const password = req.body.password;
+      const firstname = req.body.firstname;
       const email = req.body.email;
+      const password = req.body.password;
 
       const data = await User.findOne({
         where: {
-          username: username,
+          email: email,
         },
       });
       if (!data) {
-        throw Error(`Data Not Found!`);
+        throw Error(`Not Found!`);
       }
       const isVeryfied = await bcrypt.compare(password, data.password);
       console.log(isVeryfied);
@@ -66,12 +67,13 @@ module.exports = {
 
       const payload = {
         ID: data.dataValues.id,
-        username: username,
+        firstname: data.firstname,
+        lastname: data.lastname,
         email: email,
       };
       console.log(payload);
       const token = jwt.sign(payload, "hey");
-      res.json({ username: data.username, email: data.email, token: token });
+      res.json({ firstname: data.firstname, email: data.email, token: token });
     } catch (err) {
       res.json({ msg: err.message });
     }
@@ -83,14 +85,17 @@ module.exports = {
 
   register: async (req, res) => {
     try {
-      const username = req.body.username;
       const data = await User.findOne({
         where: {
-          username: username,
+          email: req.body.email,
         },
       });
       console.log(req.payload);
-      res.json({ userId: data.id, username: data.username, email: data.email });
+      res.json({
+        userId: data.id,
+        firstname: data.firstname,
+        email: data.email,
+      });
     } catch (Error) {
       console.log(Error.message);
       res.status(422).json({ message: Error.sqlMessage });
@@ -138,7 +143,8 @@ module.exports = {
     const id = req.params.id;
     const data = await User.update(
       {
-        username: req.body.username,
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
         email: req.body.email,
         password: req.body.password,
       },

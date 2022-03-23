@@ -6,7 +6,7 @@ router.get("/getNotes", notesController.getNotes);
 
 router.get("/getOneNotes/:id", notesController.getOneNotes);
 
-router.post("/createNotes", notesController.createNotes);
+router.post("/createNotes/:id", notesController.createNotes);
 
 router.put("/updateNotes/:id", notesController.updateNotes);
 

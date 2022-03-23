@@ -6,9 +6,9 @@ module.exports = {
   createNotes: async (req, res) => {
     try {
       const data = await Notes.create({
-        userId: req.body.userId,
+        userId: req.params.id,
         itsPriority: req.body.itsPriority,
-        Day: req.body.Day,
+        isCompleted: req.body.isCompleted,
         Date: req.body.Date,
         Todo: req.body.Todo,
       });
@@ -26,8 +26,8 @@ module.exports = {
 
   getOneNotes: async (req, res) => {
     const data = await Notes.findOne({
-      include: [{ model: User }],
       where: { id: req.params.id },
+      include: [{ model: User }],
     });
     res.json(data);
   },
@@ -38,7 +38,7 @@ module.exports = {
       {
         userId: req.body.userId,
         itsPriority: req.body.itsPriority,
-        Day: req.body.Day,
+        isCompleted: req.body.isCompleted,
         Date: req.body.Date,
         Todo: req.body.Todo,
       },

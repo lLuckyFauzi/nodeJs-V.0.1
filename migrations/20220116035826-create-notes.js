@@ -1,42 +1,42 @@
-'use strict';
+"use strict";
 
 const sequelize = require("sequelize");
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Notes', {
+    await queryInterface.createTable("Notes", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       userId: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       itsPriority: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
       },
-      Day: {
-        type: Sequelize.STRING
+      isCompleted: {
+        type: Sequelize.BOOLEAN,
       },
       Date: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       Todo: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Notes');
-  }
+    await queryInterface.dropTable("Notes");
+  },
 };

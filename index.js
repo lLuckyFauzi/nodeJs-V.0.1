@@ -6,6 +6,7 @@ const NotesRouter = require("./Router/notes");
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUI = require("swagger-ui-express");
 const port = process.env.PORT || 3001;
+const cors = require("cors");
 
 const app = express();
 
@@ -26,6 +27,7 @@ const specs = swaggerJsDoc(option);
 
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 
+app.use(cors());
 app.use(express.json());
 app.use(UserRouter);
 app.use(NotesRouter);

@@ -40,7 +40,7 @@ router.get("/getUser", UserController.getUser);
  *      500:
  *        description: Some error happened
  */
-router.get("/getOne/:username", UserController.getOne);
+router.get("/getOne/:id", UserController.getOne);
 
 /**
  * @swagger
